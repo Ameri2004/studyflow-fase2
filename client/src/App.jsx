@@ -1,19 +1,39 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, AuthContext } from './context/AuthContext';
+import { useContext } from 'react';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+
+// Componente para proteger las rutas privadas
+const RutaPrivada = ({ children }) => {
+  const { usuario, cargando } = useContext(AuthContext);
+  
+  if (cargando) return <div className="min-h-screen flex items-center justify-center">Cargando...</div>;
+  
+  // Si no hay usuario en sesión, lo devuelve al Login
+  return usuario ? children : <Navigate to="/" />;
+};
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-surface p-8 rounded-xl shadow-lg text-center">
-        <h1 className="text-4xl font-bold text-primary mb-4">
-          StudyFlow Frontend
-        </h1>
-        <p className="text-neutral-medium">
-          React, Vite y Tailwind configurados correctamente.
-        </p>
-        <button className="mt-6 bg-primary hover:bg-primary-hover text-white px-6 py-2 rounded-lg transition-colors">
-          Probar Botón
-        </button>
-      </div>
-    </div>
-  )
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route 
+            path="/dashboard" 
+            element={
+              <RutaPrivada>
+                <Dashboard />
+              </RutaPrivada>
+            } 
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
