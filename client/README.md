@@ -1,16 +1,28 @@
-# React + Vite
+# 📚 StudyFlow - Fase 2 (Full-Stack)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+StudyFlow es una aplicación web orientada a estudiantes universitarios para gestionar su carga académica y tareas mediante un sistema de tableros Kanban interactivos.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologías Utilizadas
+* **Frontend:** React.js, Vite, Tailwind CSS v3, React Router DOM, Axios.
+* **Backend:** Node.js, Express.js, Mongoose.
+* **Base de Datos:** MongoDB.
+* **Seguridad:** JSON Web Tokens (JWT) y Bcryptjs.
+* **Documentación:** Swagger UI (OpenAPI 3.0).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ⚙️ Funcionalidades (Requisitos Fase 2)
+* **Autenticación (RF01):** Registro y Login con encriptación de contraseñas y validación de sesiones por token JWT.
+* **Gestor de Materias (RF02):** Creación y visualización de asignaturas vinculadas al usuario, con personalización de colores.
+* **Tablero Kanban (RF03/RF04):** Panel interactivo para gestionar tareas y cambiar su estado (Pendiente, En Proceso, Completado).
+* **API RESTful Documentada:** Endpoints interactivos accesibles y probables a través de Swagger.
 
-## React Compiler
+## 🛠️ Instalación y Ejecución Local
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. Requisitos Previos
+* Node.js instalado.
+* MongoDB ejecutándose localmente (puerto 27017).
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### 2. Configurar el Backend (Servidor)
+Abre una terminal y ejecuta:
+```bash
+cd server
+npm install
