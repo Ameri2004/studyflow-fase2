@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const swaggerDocs = require('./config/swagger'); // IMPORTACIÓN DE SWAGGER
 
 const app = express();
 
@@ -22,7 +23,10 @@ app.get('/api/health', (req, res) => {
 // Rutas principales de la API
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/materias', require('./routes/materiaRoutes'));
-app.use('/api/tareas', require('./routes/tareaRoutes')); // NUEVA RUTA CONECTADA
+app.use('/api/tareas', require('./routes/tareaRoutes'));
+
+// Inicializar Swagger UI
+swaggerDocs(app); // INYECCIÓN DE SWAGGER
 
 // Levantar el servidor
 const PORT = process.env.PORT || 5000;

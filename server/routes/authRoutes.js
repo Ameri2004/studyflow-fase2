@@ -4,14 +4,68 @@ const authController = require('../controllers/authController');
 const auth = require('../middleware/auth');
 const Usuario = require('../models/Usuario');
 
-// Rutas públicas
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Registra un nuevo usuario
+ *     tags: [Autenticación]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Usuario registrado exitosamente (Devuelve token JWT)
+ */
 router.post('/register', authController.registrarUsuario);
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Inicia sesión de usuario
+ *     tags: [Autenticación]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login exitoso (Devuelve token JWT)
+ */
 router.post('/login', authController.loginUsuario);
 
-// Ruta protegida (Requiere el token JWT) - GET /api/auth/me
+/**
+ * @swagger
+ * /api/auth/me:
+ *   get:
+ *     summary: Obtiene los datos del usuario autenticado
+ *     tags: [Autenticación]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Datos del usuario (sin contraseña)
+ */
 router.get('/me', auth, async (req, res) => {
   try {
-    // Busca al usuario por el ID del token, omitiendo la contraseña
     const usuario = await Usuario.findById(req.usuario.id).select('-password');
     res.json(usuario);
   } catch (error) {
